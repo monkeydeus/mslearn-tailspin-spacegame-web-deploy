@@ -20,6 +20,9 @@ stages:
           wwwrootDir: "Tailspin.SpaceGame.Web/wwwroot"
 
         steps:
+          - script: 'echo "$[variables.SITE_URL]"'
+            displayName: "Write variable info"
+
           - task: UseDotNet@2
             displayName: "Use .NET SDK $(dotnetSdkVersion)"
             inputs:
@@ -107,9 +110,16 @@ stages:
                 - task: AzureWebApp@1
                   displayName: "Azure App Service Deploy: website"
                   inputs:
+                    appType: webAppLinux
                     azureSubscription: "Resource Manager - Tailspin - Space Game"
                     appName: "$(WebAppNameTest)"
                     package: "$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip"
+
+      - job: DisplayEnvVars
+        displayName: "Env Vars"
+        steps:
+          - script: 'echo "$[variables.SITE_URL]"'
+            displayName: "Write variable info"
 
       - job: RunUITests
         dependsOn: Deploy
