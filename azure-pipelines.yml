@@ -144,6 +144,8 @@ stages:
               command: "build"
               arguments: "--configuration $(buildConfiguration)"
               projects: "$(System.DefaultWorkingDirectory)/**/*UITests.csproj"
+          - script: 'echo "USING SITE: $(SITE_URL)"'
+            displayName: "Write variable info"
           - task: DotNetCoreCLI@2
             displayName: "Run unit tests - $(buildConfiguration)"
             inputs:
