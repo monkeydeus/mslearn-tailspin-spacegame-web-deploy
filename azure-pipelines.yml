@@ -8,6 +8,10 @@ variables:
 stages:
   - stage: "Build"
     displayName: "Build the web application"
+
+    variables:
+      - group: "Release"
+
     jobs:
       - job: "Build"
         displayName: "Build job"
@@ -94,13 +98,14 @@ stages:
   - stage: "Test"
     displayName: "Deploy to the test environment"
     dependsOn: Dev
+    variables:
+      - group: "Release"
     jobs:
       - deployment: Deploy
         pool:
           vmImage: "ubuntu-20.04"
         environment: test
-        variables:
-          - group: "Release"
+
         strategy:
           runOnce:
             deploy:
