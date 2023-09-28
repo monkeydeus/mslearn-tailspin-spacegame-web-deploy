@@ -20,7 +20,7 @@ stages:
           wwwrootDir: "Tailspin.SpaceGame.Web/wwwroot"
 
         steps:
-          - script: 'echo "$[variables.SITE_URL]"'
+          - script: 'echo "USING SITE: $(SITE_URL)"'
             displayName: "Write variable info"
 
           - task: UseDotNet@2
@@ -118,7 +118,7 @@ stages:
       - job: DisplayEnvVars
         displayName: "Env Vars"
         steps:
-          - script: 'echo "$[variables.SITE_URL]"'
+          - script: 'echo "USING SITE: $(SITE_URL)"'
             displayName: "Write variable info"
 
       - job: RunUITests
